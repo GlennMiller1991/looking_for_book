@@ -1,83 +1,14 @@
 import React, {useState} from 'react';
 import API from '../../api/api';
 import styles from './Search.module.css'
+import {useSelector} from "react-redux";
+import {stateType} from "../../redux/store";
+import {searchStateType} from "../../redux/searchReducer";
 
-type bookType = {
-    kind?: string,
-    "id"?: string,
-    "etag"?: string,
-    "selfLink"?: string,
-    "volumeInfo"?: {
-        "title"?: string,
-        "subtitle"?: string,
-        "authors"?: string[],
-        "publishedDate"?: string,
-        "description"?: string,
-        "industryIdentifiers"?: [
-            {
-                "type": string,
-                "identifier": string
-            }
-        ],
-        "readingModes"?: {
-            "text": boolean,
-            "image": boolean
-        },
-        "pageCount"?: number,
-        "printType"?: string,
-        "categories"?: string[],
-        "maturityRating"?: string,
-        "allowAnonLogging"?: boolean,
-        "contentVersion"?: string,
-        "panelizationSummary"?: {
-            "containsEpubBubbles": boolean,
-            "containsImageBubbles": boolean
-        },
-        "imageLinks"?: {
-            "smallThumbnail": string,
-            "thumbnail": string,
-        },
-        "language"?: string,
-        "previewLink"?: string,
-        "infoLink"?: string,
-        "canonicalVolumeLink"?: string,
-    },
-    "saleInfo"?: {
-        "country": string,
-        "saleability": string,
-        "isEbook": false
-    },
-    "accessInfo"?: {
-        "country": string,
-        "viewability": string,
-        "embeddable": boolean,
-        "publicDomain": boolean,
-        "textToSpeechPermission": string,
-        "epub"?: {
-            "isAvailable": boolean
-        },
-        "pdf"?: {
-            "isAvailable": boolean
-        },
-        "webReaderLink"?: string,
-        "accessViewStatus"?: string,
-        "quoteSharingAllowed"?: boolean,
-    },
-    "searchInfo"?: {
-        "textSnippet": string,
-    },
-}
-type bookSearchType = {
-    kind: string,
-    totalItems: number,
-    items: bookType[],
-}
-const initialData: bookSearchType = {
-    kind: '',
-    totalItems: 0,
-    items: [],
-}
-const Lesson3 = () => {
+
+
+const Search = () => {
+    /*const state = useSelector<stateType, searchStateType>(state => state.searchResults)
     const [searchName, setSearchName] = useState('How to use this API');
     const [serachResult, setSerachResult] = useState<bookSearchType>(initialData);
     const [errorTitleRequest, setErrorTitleRequest] = useState<boolean>(false)
@@ -104,30 +35,34 @@ const Lesson3 = () => {
             </div>
             <hr/>
         </div>
-    );
+    );*/
+    return (
+        <div></div>
+    )
 }
-export default Lesson3;
+export default Search;
 
+/*
 type BookPropsType = {
     book: bookType,
 }
 export const Book: React.FC<BookPropsType> = (props) => {
     return (
         <div className={styles.movie}>
-{/*            <img src={props.book.volumeInfo?.description}
-                 alt={'no poster'} className={styles.poster}/>*/}
+{/!*            <img src={props.book.volumeInfo?.description}
+                 alt={'no poster'} className={styles.poster}/>*!/}
             <div className={styles.rest}>
                 {props.book.volumeInfo?.description}
                 <hr/>
-{/*                {props.book.Released}
+{/!*                {props.book.Released}
                 <hr/>
                 {props.book.Plot}
                 <hr/>
                 {props.book.Actors}
                 <hr/>
                 {props.book.Awards}
-                <hr/>*/}
+                <hr/>*!/}
             </div>
         </div>
     )
-}
+}*/
