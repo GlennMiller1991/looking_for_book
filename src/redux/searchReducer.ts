@@ -80,6 +80,8 @@ export type booksPageType = {
     books: bookType[],
     isLoading: boolean,
     queryString: string,
+    filter: string,
+    sort: string,
 }
 type actionsType = changeSearchQueryActionType
     | renewSearchResultsActionType
@@ -109,11 +111,13 @@ export const renewSearchResults = (books: bookType[], totalCount: number) => {
         },
     } as const
 }
-export const changeSearchQuery = (queryString: string) => {
+export const changeSearchQuery = (queryString: string, filter: string, sort: string) => {
     return {
         type: CHANGE_SEARCH_QUERY,
         payload: {
             queryString,
+            filter,
+            sort,
         }
     } as const
 }
@@ -125,6 +129,8 @@ const initialData: booksPageType = {
     isLoading: false,
     totalCount: 0,
     queryString: '',
+    filter: 'all',
+    sort: 'relevance',
 }
 
 export const searchReducer = (state: booksPageType = initialData, action: actionsType) => {

@@ -6,15 +6,20 @@ export const booksAPI = {
         return serverApi
             .get<bookSearchType>(`?q=${title}&maxResults=${pageSize}&startIndex=${startIndex}`)
             .then(response => {
-                if (response.status === 200) return response.data
-                else return {totalItems: 0, items: [], kind: 'Unknown error'}
+                console.log(response)
+                return response.status === 200 ?
+                    response.data :
+                    {
+                        totalItems: -1,
+                        items: [],
+                        kind: 'Unknown error'
+                    }
             })
             .catch(err => {
-                console.log(err)
                 return {
-                    totalItems: 0,
+                    totalItems: -1,
                     items: [],
-                    kind: 'Unknown error',
+                    kind: err.message,
                 }
             })
     }
