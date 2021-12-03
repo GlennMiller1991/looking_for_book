@@ -128,9 +128,14 @@ const initialData: booksPageType = {
 }
 
 export const searchReducer = (state: booksPageType = initialData, action: actionsType) => {
-    console.log(action.payload)
     switch (action.type) {
         case RENEW_SEARCH_RESULTS:
+            return {
+                ...state,
+                totalCount: action.payload.totalCount,
+                isLoading: action.payload.isLoading,
+                books: [...state.books, ...action.payload.books],
+            }
         case CHANGE_IS_LOADING_STATUS:
         case CHANGE_SEARCH_QUERY:
             return {

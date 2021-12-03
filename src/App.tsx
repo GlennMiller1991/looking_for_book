@@ -8,6 +8,7 @@ import API from "./api/api";
 import {booksAPI} from "./api/getBookApi";
 
 function App() {
+    console.log('from app')
     return (
         <div className={styles.app}>
             <Hat/>
@@ -19,27 +20,26 @@ function App() {
 export default App;
 
 export const Hat = React.memo(() => {
+    console.log('from hat')
     const [searchName, setSearchName] = useState('')
     const dispatch = useDispatch()
 
     const onSearchFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchName(e.currentTarget.value)
-    }
-    const changeSearchString = (s: string) => {
-        dispatch(changeSearchQuery(s))
+        setSearchName(e.currentTarget.value.trim())
     }
     const onEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        const key = e.code
-        if (key === 'Enter') {
-            changeSearchString(searchName)
+        if (e.code === 'Enter' && searchName) {
+            dispatch(changeSearchQuery(searchName))
         }
+
     }
     return (
         <div className={styles.hat}>
             <h1>Search for books</h1>
             <div>
                 <input value={searchName}
-                       onChange={onSearchFieldChange} onKeyPress={onEnterPress}/>
+                       onChange={onSearchFieldChange}
+                       onKeyPress={onEnterPress}/>
                 <div>
                     <select value={'first'}>
                         <option value={'first'}>first</option>
@@ -60,12 +60,20 @@ export const Books = React.memo(() => {
     //data
     const state = useSelector<stateType, booksPageType>(state => state.searchResults)
     const dispatch = useDispatch()
-    console.log(state)
+    const onClickHandler = () => {
+        dispatch(changeIsLoadingStatus(true))
+        booksAPI.getBooks(state.queryString, state.pageSize, state.books.length)
+            .then(data => {
+                dispatch(renewSearchResults(data.items, data.totalItems))
+            })
+    }
+
     //useEffect
     useEffect(() => {
+        console.log('from useEffect')
         if (state.queryString) {
             dispatch(changeIsLoadingStatus(true))
-            booksAPI.getBooks(state.queryString, state.pageSize)
+            booksAPI.getBooks(state.queryString, state.pageSize, 0)
                 .then(data => {
                     dispatch(renewSearchResults(data.items, data.totalItems))
                 })
@@ -92,7 +100,7 @@ export const Books = React.memo(() => {
                                 }
                             </div>
                             {
-                                !state.isLoading && <div>Load more</div>
+                                !state.isLoading && <div onClick={onClickHandler}>Load more</div>
                             }
                         </div>
                     </React.Fragment>
