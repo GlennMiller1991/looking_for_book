@@ -3,7 +3,7 @@ import API from '../../api/api';
 import styles from './Search.module.css'
 import {useSelector} from "react-redux";
 import {stateType} from "../../redux/store";
-import {searchStateType} from "../../redux/searchReducer";
+import {booksPageType} from "../../redux/searchReducer";
 
 
 

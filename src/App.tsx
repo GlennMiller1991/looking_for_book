@@ -1,10 +1,11 @@
 import React, {KeyboardEvent, ChangeEvent, useState, useEffect} from 'react';
 import styles from './App.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import {changeSearchQuery, renewSearchResults, searchStateType} from "./redux/searchReducer";
+import {changeSearchQuery, renewSearchResults, booksPageType, changeIsLoadingStatus} from "./redux/searchReducer";
 import {stateType} from "./redux/store";
 import preloader from './common/preloader.gif'
 import API from "./api/api";
+import {booksAPI} from "./api/getBookApi";
 
 function App() {
     return (
@@ -55,36 +56,54 @@ export const Hat = React.memo(() => {
     )
 })
 export const Books = React.memo(() => {
+    console.log('from Books')
     //data
-    const state = useSelector<stateType, searchStateType>(state => state.searchResults)
-    const {searchQuery, searchResult, needToRender, ...rest} = state
+    const state = useSelector<stateType, booksPageType>(state => state.searchResults)
     const dispatch = useDispatch()
-
+    console.log(state)
     //useEffect
     useEffect(() => {
-        if (searchQuery) {
-            API.searchFilmsByTitle(searchQuery)
-                .then(searchResult => {
-                    dispatch(renewSearchResults(searchResult))
+        if (state.queryString) {
+            dispatch(changeIsLoadingStatus(true))
+            booksAPI.getBooks(state.queryString, state.pageSize)
+                .then(data => {
+                    dispatch(renewSearchResults(data.items, data.totalItems))
                 })
         }
-    }, [searchQuery])
-    console.log(state.searchResult.items)
+    }, [state.queryString])
     return (
-        <div className={styles.booksContainer}>
+        <React.Fragment>
             {
-                searchResult.items.map((book, index) => {
-                    return (
-                        <div key={index} className={styles.book}>
-                            <Book title={book.volumeInfo.title}
-                                  category={book.volumeInfo.categories[0]}
-                                  imageUrl={book.volumeInfo.imageLinks.smallThumbnail}
-                                  authors={book.volumeInfo.authors}/>
+                state.totalCount > 0 &&
+                    <React.Fragment>
+                        <div className={styles.booksWrapper}>
+                            <div>{state.totalCount}</div>
+                            <div className={styles.booksContainer}>
+                                {
+                                    state.books.map((book, index) => {
+                                        return (
+                                            <Book key={index}
+                                                  title={book.volumeInfo.title}
+                                                  category={book.volumeInfo.categories[0]}
+                                                  imageUrl={book.volumeInfo.imageLinks.smallThumbnail}
+                                                  authors={book.volumeInfo.authors}/>
+                                        )
+                                    })
+                                }
+                            </div>
+                            {
+                                !state.isLoading && <div>Load more</div>
+                            }
                         </div>
-                    )
-                })
+                    </React.Fragment>
             }
-        </div>
+            {
+                state.isLoading &&
+                <div>
+                    <img src={preloader} alt={'preloader'}/>
+                </div>
+            }
+        </React.Fragment>
     )
 })
 
@@ -96,7 +115,7 @@ type BookPropsType = {
 }
 export const Book: React.FC<BookPropsType> = React.memo((props) => {
     return (
-        <div className={styles.skill}>
+        <div className={styles.book}>
             <img src={props.imageUrl} alt={'bookPic'}/>
             <h3>{props.title}</h3>
             <div>

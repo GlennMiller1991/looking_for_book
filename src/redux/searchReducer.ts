@@ -1,6 +1,7 @@
 //constants
 const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY'
 const RENEW_SEARCH_RESULTS = 'RENEW_SEARCH_RESULTS'
+const CHANGE_IS_LOADING_STATUS = 'CHANGE_IS_LOADING_STATUS'
 
 //types
 type bookType = {
@@ -68,66 +69,69 @@ type bookType = {
         textSnippet: string,
     },
 }
-type bookSearchType = {
+export type bookSearchType = {
     kind: string,
     totalItems: number,
     items: bookType[],
 }
-export type searchStateType = {
-    searchResult: bookSearchType,
+export type booksPageType = {
     pageSize: number,
-    toRender: number,
-    searchQuery: string | false,
-    needToRender: bookType[],
-    wasRendered: bookType[],
+    totalCount: number,
+    books: bookType[],
+    isLoading: boolean,
+    queryString: string,
 }
 type actionsType = changeSearchQueryActionType
     | renewSearchResultsActionType
+    | changeIsLoadingStatusActionType
 
 type changeSearchQueryActionType = ReturnType<typeof changeSearchQuery>
 type renewSearchResultsActionType = ReturnType<typeof renewSearchResults>
+type changeIsLoadingStatusActionType = ReturnType<typeof changeIsLoadingStatus>
 
 //action creators
-export const renewSearchResults = (searchResult: bookSearchType) => {
+export const changeIsLoadingStatus = (isLoading: boolean) => {
+    return {
+        type: CHANGE_IS_LOADING_STATUS,
+        payload: {
+            isLoading,
+        }
+    } as const
+
+}
+export const renewSearchResults = (books: bookType[], totalCount: number) => {
     return {
         type: RENEW_SEARCH_RESULTS,
         payload: {
-            ...searchResult,
+            books,
+            totalCount,
+            isLoading: false,
         },
     } as const
 }
-export const changeSearchQuery = (searchQuery: string) => {
+export const changeSearchQuery = (queryString: string) => {
     return {
         type: CHANGE_SEARCH_QUERY,
         payload: {
-            searchQuery,
+            queryString,
         }
     } as const
 }
 
 //data
-const initialData: searchStateType = {
+const initialData: booksPageType = {
     pageSize: 2,
-    toRender: 0,
-    searchResult: {
-        kind: '',
-        totalItems: 0,
-        items: [],
-    },
-    searchQuery: '',
-    needToRender: [],
-    wasRendered: [],
+    books: [],
+    isLoading: false,
+    totalCount: 0,
+    queryString: '',
 }
 
-export const searchReducer = (state: searchStateType = initialData, action: actionsType) => {
+export const searchReducer = (state: booksPageType = initialData, action: actionsType) => {
+    console.log(action.payload)
     switch (action.type) {
         case RENEW_SEARCH_RESULTS:
-            return {
-                ...state,
-                searchResult: {
-                    ...action.payload
-                },
-            }
+        case CHANGE_IS_LOADING_STATUS:
         case CHANGE_SEARCH_QUERY:
             return {
                 ...state,
