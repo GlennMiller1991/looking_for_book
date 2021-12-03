@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeSearchQuery, renewSearchResults, booksPageType, changeIsLoadingStatus} from "./redux/searchReducer";
 import {stateType} from "./redux/store";
 import preloader from './common/preloader.gif'
-import API from "./api/api";
 import {booksAPI} from "./api/getBookApi";
+import unknownBook from './common/unknownBook.png'
 
 function App() {
     console.log('from app')
@@ -67,7 +67,6 @@ export const Books = React.memo(() => {
                 dispatch(renewSearchResults(data.items, data.totalItems))
             })
     }
-
     //useEffect
     useEffect(() => {
         console.log('from useEffect')
@@ -83,27 +82,24 @@ export const Books = React.memo(() => {
         <React.Fragment>
             {
                 state.totalCount > 0 &&
-                    <React.Fragment>
-                        <div className={styles.booksWrapper}>
-                            <div>{state.totalCount}</div>
-                            <div className={styles.booksContainer}>
-                                {
-                                    state.books.map((book, index) => {
-                                        return (
-                                            <Book key={index}
-                                                  title={book.volumeInfo.title}
-                                                  category={book.volumeInfo.categories[0]}
-                                                  imageUrl={book.volumeInfo.imageLinks.smallThumbnail}
-                                                  authors={book.volumeInfo.authors}/>
-                                        )
-                                    })
-                                }
-                            </div>
+                <React.Fragment>
+                    <div className={styles.booksWrapper}>
+                        <div>{state.totalCount}</div>
+                        <div className={styles.booksContainer}>
                             {
-                                !state.isLoading && <div onClick={onClickHandler}>Load more</div>
+                                state.books.map((book, index) => {
+                                    console.log(book.volumeInfo.categories)
+                                    return (
+                                        <Book key={index} {...book.volumeInfo}/>
+                                    )
+                                })
                             }
                         </div>
-                    </React.Fragment>
+                        {
+                            !state.isLoading && <div onClick={onClickHandler}>Load more</div>
+                        }
+                    </div>
+                </React.Fragment>
             }
             {
                 state.isLoading &&
@@ -117,20 +113,24 @@ export const Books = React.memo(() => {
 
 type BookPropsType = {
     title: string,
-    imageUrl: string,
+    imageLinks?: {
+        smallThumbnail: string,
+        thumbnail: string,
+    },
     authors: string[],
-    category: string
+    categories?: string[],
+    [x: string]: any,
 }
 export const Book: React.FC<BookPropsType> = React.memo((props) => {
     return (
         <div className={styles.book}>
-            <img src={props.imageUrl} alt={'bookPic'}/>
-            <h3>{props.title}</h3>
+            <img src={props.imageLinks ? props.imageLinks.smallThumbnail : unknownBook} alt={'bookPic'}/>
+            <h3>{props.title ? props.title : ''}</h3>
             <div>
-                <span className={styles.authors}>{props.authors}</span>
+                <span className={styles.authors}>{props.authors ? props.authors : ''}</span>
             </div>
             <div>
-                <span className={styles.category}>{props.category}</span>
+                <span className={styles.categories}>{props.categories ? props.categories[0] : ''}</span>
             </div>
         </div>
     )

@@ -27,7 +27,7 @@ type bookType = {
         },
         pageCount: number,
         printType: string,
-        categories: string[],
+        categories?: string[],
         maturityRating: string,
         allowAnonLogging: boolean,
         contentVersion: string,
@@ -35,7 +35,7 @@ type bookType = {
             containsEpubBubbles: boolean,
             containsImageBubbles: boolean
         },
-        imageLinks: {
+        imageLinks?: {
             smallThumbnail: string,
             thumbnail: string,
         },
