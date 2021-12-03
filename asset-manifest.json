@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/looking_for_book/static/css/main.bf247d3b.chunk.css",
-    "main.js": "/looking_for_book/static/js/main.fa177359.chunk.js",
-    "main.js.map": "/looking_for_book/static/js/main.fa177359.chunk.js.map",
-    "runtime-main.js": "/looking_for_book/static/js/runtime-main.6e8bd3ee.js",
-    "runtime-main.js.map": "/looking_for_book/static/js/runtime-main.6e8bd3ee.js.map",
-    "static/js/2.fd8b7925.chunk.js": "/looking_for_book/static/js/2.fd8b7925.chunk.js",
-    "static/js/2.fd8b7925.chunk.js.map": "/looking_for_book/static/js/2.fd8b7925.chunk.js.map",
-    "static/js/3.17ecd2f2.chunk.js": "/looking_for_book/static/js/3.17ecd2f2.chunk.js",
-    "static/js/3.17ecd2f2.chunk.js.map": "/looking_for_book/static/js/3.17ecd2f2.chunk.js.map",
+    "main.css": "/looking_for_book/static/css/main.f1bc8fe2.chunk.css",
+    "main.js": "/looking_for_book/static/js/main.e6ce1580.chunk.js",
+    "main.js.map": "/looking_for_book/static/js/main.e6ce1580.chunk.js.map",
+    "runtime-main.js": "/looking_for_book/static/js/runtime-main.0f6a3a27.js",
+    "runtime-main.js.map": "/looking_for_book/static/js/runtime-main.0f6a3a27.js.map",
+    "static/js/2.f451eb8f.chunk.js": "/looking_for_book/static/js/2.f451eb8f.chunk.js",
+    "static/js/2.f451eb8f.chunk.js.map": "/looking_for_book/static/js/2.f451eb8f.chunk.js.map",
+    "static/js/3.23e81790.chunk.js": "/looking_for_book/static/js/3.23e81790.chunk.js",
+    "static/js/3.23e81790.chunk.js.map": "/looking_for_book/static/js/3.23e81790.chunk.js.map",
     "index.html": "/looking_for_book/index.html",
-    "static/css/main.bf247d3b.chunk.css.map": "/looking_for_book/static/css/main.bf247d3b.chunk.css.map",
-    "static/js/2.fd8b7925.chunk.js.LICENSE.txt": "/looking_for_book/static/js/2.fd8b7925.chunk.js.LICENSE.txt"
+    "static/css/main.f1bc8fe2.chunk.css.map": "/looking_for_book/static/css/main.f1bc8fe2.chunk.css.map",
+    "static/js/2.f451eb8f.chunk.js.LICENSE.txt": "/looking_for_book/static/js/2.f451eb8f.chunk.js.LICENSE.txt",
+    "static/media/preloader.53b421a8.gif": "/looking_for_book/static/media/preloader.53b421a8.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.6e8bd3ee.js",
-    "static/js/2.fd8b7925.chunk.js",
-    "static/css/main.bf247d3b.chunk.css",
-    "static/js/main.fa177359.chunk.js"
+    "static/js/runtime-main.0f6a3a27.js",
+    "static/js/2.f451eb8f.chunk.js",
+    "static/css/main.f1bc8fe2.chunk.css",
+    "static/js/main.e6ce1580.chunk.js"
   ]
 }
