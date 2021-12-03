@@ -75,14 +75,36 @@ export const Books = React.memo(() => {
             {
                 searchResult.items.map((book, index) => {
                     return (
-                        <div key={index}>
-                            {
-                                book.volumeInfo.title
-                            }
+                        <div key={index} className={styles.book}>
+                            <Book title={book.volumeInfo.title}
+                                  category={book.volumeInfo.categories[0]}
+                                  imageUrl={book.volumeInfo.imageLinks.smallThumbnail}
+                                  authors={book.volumeInfo.authors}/>
                         </div>
                     )
                 })
             }
+        </div>
+    )
+})
+
+type BookPropsType = {
+    title: string,
+    imageUrl: string,
+    authors: string[],
+    category: string
+}
+export const Book: React.FC<BookPropsType> = React.memo((props) => {
+    return (
+        <div className={styles.skill}>
+            <img src={props.imageUrl} alt={'bookPic'}/>
+            <h3>{props.title}</h3>
+            <div>
+                <span className={styles.authors}>{props.authors}</span>
+            </div>
+            <div>
+                <span className={styles.category}>{props.category}</span>
+            </div>
         </div>
     )
 })

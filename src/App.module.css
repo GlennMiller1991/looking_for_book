@@ -27,4 +27,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.book {
+    width: 100px;
+    border: 1px solid black;
 }
