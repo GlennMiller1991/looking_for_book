@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {stateType} from "../../redux/store";
 import {bookPageType, ERROR, OK} from "../../redux/bookReducer";
 import {booksAPI} from "../../api/getBookApi";
-import {setBook} from "../../redux/actions";
+import {changeNeedToSearch, setBook} from "../../redux/actions";
 import {ErrorMessage} from "../Books/Books";
 import preloader from "../../common/preloader.gif";
 import {WholeBook} from "./WholeBook";
@@ -27,13 +27,20 @@ const BookSecret: React.FC<RouteComponentProps<PathParamsType>> = React.memo((pr
                     dispatch(setBook(data))
                 })
         }, 2000)
+
+        return () => {
+            dispatch(changeNeedToSearch(false))
+        }
+
     }, [dispatch, props.match.params.bookId])
+
+
     return (
         <div className={styles.booksWrapper}>
             {
                 bookState.id === ERROR ?
                     <ErrorMessage message={bookState.kind}/> :
-                    bookState.id === OK ?
+                    bookState.id === OK || props.match.params.bookId !== bookState.id ?
                         <div className={styles.preloader}>
                             <img src={preloader} alt={'preloader'}/>
                         </div> :

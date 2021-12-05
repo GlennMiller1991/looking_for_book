@@ -1,14 +1,11 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styles from './WholeBook.module.css'
 import unknownBook from '../../common/unknownBook.png'
-import {useDispatch} from "react-redux";
-import {changeNeedToSearch} from "../../redux/actions";
 
 type WholeBookPropsType = {
     [x: string]: any,
 }
 export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
-    const dispatch = useDispatch()
     const imageLinks = props.imageLinks
     const imageSrc = imageLinks ?
         (
@@ -19,13 +16,6 @@ export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
             imageLinks.smallThumbnail && imageLinks.smallThumbnail
         ) :
         unknownBook
-
-    //unmount
-    useEffect(() => {
-        return () => {
-            dispatch(changeNeedToSearch(false))
-        }
-    }, [dispatch])
 
     return (
         <div className={styles.wholeBook}>
