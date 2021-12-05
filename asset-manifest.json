@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/looking_for_book/static/css/main.cfa16036.chunk.css",
+    "main.css": "/looking_for_book/static/css/main.0c8c6af1.chunk.css",
     "main.js": "/looking_for_book/static/js/main.21916b8c.chunk.js",
     "main.js.map": "/looking_for_book/static/js/main.21916b8c.chunk.js.map",
     "runtime-main.js": "/looking_for_book/static/js/runtime-main.4401f8b6.js",
@@ -10,7 +10,7 @@
     "static/js/3.abf60645.chunk.js": "/looking_for_book/static/js/3.abf60645.chunk.js",
     "static/js/3.abf60645.chunk.js.map": "/looking_for_book/static/js/3.abf60645.chunk.js.map",
     "index.html": "/looking_for_book/index.html",
-    "static/css/main.cfa16036.chunk.css.map": "/looking_for_book/static/css/main.cfa16036.chunk.css.map",
+    "static/css/main.0c8c6af1.chunk.css.map": "/looking_for_book/static/css/main.0c8c6af1.chunk.css.map",
     "static/js/2.5f03c490.chunk.js.LICENSE.txt": "/looking_for_book/static/js/2.5f03c490.chunk.js.LICENSE.txt",
     "static/media/App.module.css": "/looking_for_book/static/media/background.3a124e66.jpg",
     "static/media/preloader.7f686c03.gif": "/looking_for_book/static/media/preloader.7f686c03.gif"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.4401f8b6.js",
     "static/js/2.5f03c490.chunk.js",
-    "static/css/main.cfa16036.chunk.css",
+    "static/css/main.0c8c6af1.chunk.css",
     "static/js/main.21916b8c.chunk.js"
   ]
 }
