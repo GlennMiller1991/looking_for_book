@@ -5,12 +5,14 @@ import {
     addSearchResultsActionType,
     changeIsLoadingStatusActionType,
     changeSearchQueryActionType,
-    renewSearchResultsActionType, setErrorMessageActionType
+    renewSearchResultsActionType, setBookActionType, setErrorMessageActionType
 } from "./actions";
+import {bookReducer} from "./bookReducer";
 
 const rootReducer = combineReducers({
     searchResults: searchReducer,
     books: booksReducer,
+    book: bookReducer,
 })
 
 export const store = createStore(rootReducer)
@@ -23,3 +25,4 @@ export type actionsType = changeSearchQueryActionType
     | changeIsLoadingStatusActionType
     | addSearchResultsActionType
     | setErrorMessageActionType
+    | setBookActionType

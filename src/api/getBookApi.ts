@@ -1,15 +1,19 @@
 import {serverApi} from "./api";
 import {bookSearchType} from "../redux/searchReducer";
+import {bookPageType, ERROR} from "../redux/bookReducer";
 
 export const booksAPI = {
     getBooks(title: string, pageSize: number, startIndex: number, orderBy: string, subject: string) {
         const url = `?q=${title}` +
             (subject === `all` ? `` : `+subject:${subject}`) +
-                    `&maxResults=${pageSize}` +
-                    `&startIndex=${startIndex}&orderBy=${orderBy}`
+            `&maxResults=${pageSize}` +
+            `&startIndex=${startIndex}&orderBy=${orderBy}`
         return serverApi
             .get<bookSearchType>(url)
-            .then(response => response.data)
+            .then(response => {
+                if(response.data.totalItems === 0) throw Error('There is no book with this title')
+                else return response.data
+            })
             .catch(err => {
                 return {
                     totalItems: -1,
@@ -17,5 +21,18 @@ export const booksAPI = {
                     kind: err.message,
                 }
             })
+    },
+    getBook(id: string) {
+        const url = `/${id}?`
+        return serverApi
+            .get<bookPageType>(url)
+            .then(response => response.data)
+            .catch(err => {
+                return {
+                    id: ERROR,
+                    kind: err.message
+                }
+            })
+
     }
 }

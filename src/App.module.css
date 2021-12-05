@@ -62,6 +62,7 @@
 }
 
 .book {
+    cursor: pointer;
     display: grid;
     background-color: #f6f3db;
     box-shadow: 5px 5px 5px 5px #80806a;
@@ -71,6 +72,11 @@
     justify-content: center;
     grid-template-rows: 150px 1px auto;
     row-gap: 5px;
+    transition: .5s;
+}
+
+.book:hover {
+    transform: scale3d(1.05, 1.05, 1.05);
 }
 
 .book img {
@@ -97,9 +103,9 @@ h1 {
 }
 
 .pagesCount {
-    height: 35px;
     font-size: 1.8em;
     color: #353c44;
+    margin-bottom: 10px;
 }
 
 .searchWrapper {

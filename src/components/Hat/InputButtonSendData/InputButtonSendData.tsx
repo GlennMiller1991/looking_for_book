@@ -4,9 +4,11 @@ type InputButtonSendDataPropsType = {
     value: string,
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
     sendData: () => void,
+    url: string,
 }
 export const InputButtonSendData: React.FC<InputButtonSendDataPropsType> = React.memo((props) => {
     console.log('from userInput')
+
     const onEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.code === 'Enter') {
             props.sendData()

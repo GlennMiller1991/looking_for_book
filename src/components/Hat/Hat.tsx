@@ -6,9 +6,24 @@ import {stateType} from "../../redux/store";
 import {UserSelect} from "./UserSelect/UserSelect";
 import {InputButtonSendData} from "./InputButtonSendData/InputButtonSendData";
 import {changeSearchQuery} from "../../redux/actions";
+import {useHistory} from "react-router-dom";
 
 export const Hat = React.memo(() => {
     console.log('from hat')
+    return (
+        <div className={styles.hat}>
+            <div className={styles.darker}>
+                <h1>Search for books</h1>
+                <div className={styles.searchWrapper}>
+                <SearchLogic/>
+                </div>
+            </div>
+        </div>
+    )
+})
+
+export const SearchLogic: React.FC = React.memo(() => {
+    console.log('from searchLogic')
 
     //initial data
     const categories: string[] = useMemo(() => {
@@ -23,7 +38,10 @@ export const Hat = React.memo(() => {
     const [searchName, setSearchName] = useState('')
     const [filterName, setFilterName] = useState(state.filter)
     const [sortName, setSortName] = useState(state.sort)
-
+    const history = useHistory();
+    const handleRoute = () =>{
+        history.push('/');
+    }
     //callbacks
     const onSearchFieldChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setSearchName(e.currentTarget.value)
@@ -32,29 +50,27 @@ export const Hat = React.memo(() => {
         const bookName = searchName.trim()
         if (bookName) {
             if (bookName !== state.queryString || filterName !== state.filter || sortName !== state.sort) {
-                console.log(bookName, state.queryString)
                 dispatch(changeSearchQuery(bookName, filterName, sortName))
+                handleRoute()
             }
         }
-    }, [dispatch, searchName, filterName, sortName, state])
+    }, [handleRoute, dispatch, searchName, filterName, sortName, state])
     return (
-        <div className={styles.hat}>
-            <div className={styles.darker}>
-                <h1>Search for books</h1>
-                <div className={styles.searchWrapper}>
-                    <InputButtonSendData value={searchName} onChange={onSearchFieldChange} sendData={setSearchParams}/>
-                    <div className={styles.selectsWrapper}>
-                        <UserSelect title={'categories'}
-                                    options={categories}
-                                    currentValue={filterName}
-                                    onChange={setFilterName}/>
-                        <UserSelect title={'sorted by'}
-                                    options={sorts}
-                                    currentValue={sortName}
-                                    onChange={setSortName}/>
-                    </div>
-                </div>
+        <React.Fragment>
+            <InputButtonSendData value={searchName}
+                                 url={'/'}
+                                 onChange={onSearchFieldChange}
+                                 sendData={setSearchParams}/>
+            <div className={styles.selectsWrapper}>
+                <UserSelect title={'categories'}
+                            options={categories}
+                            currentValue={filterName}
+                            onChange={setFilterName}/>
+                <UserSelect title={'sorted by'}
+                            options={sorts}
+                            currentValue={sortName}
+                            onChange={setSortName}/>
             </div>
-        </div>
+        </React.Fragment>
     )
 })
