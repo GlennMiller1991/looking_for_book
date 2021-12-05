@@ -15,7 +15,7 @@ export const Hat = React.memo(() => {
             <div className={styles.darker}>
                 <h1>Search for books</h1>
                 <div className={styles.searchWrapper}>
-                <SearchLogic/>
+                    <SearchLogic/>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@ export const SearchLogic: React.FC = React.memo(() => {
     const [filterName, setFilterName] = useState(state.filter)
     const [sortName, setSortName] = useState(state.sort)
     const history = useHistory();
-    const handleRoute = () =>{
+    const handleRoute = () => {
         history.push('/');
     }
     //callbacks
@@ -49,10 +49,8 @@ export const SearchLogic: React.FC = React.memo(() => {
     const setSearchParams = useCallback(() => {
         const bookName = searchName.trim()
         if (bookName) {
-            if (bookName !== state.queryString || filterName !== state.filter || sortName !== state.sort) {
-                dispatch(changeSearchQuery(bookName, filterName, sortName))
-                handleRoute()
-            }
+            dispatch(changeSearchQuery(bookName, filterName, sortName))
+            handleRoute()
         }
     }, [handleRoute, dispatch, searchName, filterName, sortName, state])
     return (

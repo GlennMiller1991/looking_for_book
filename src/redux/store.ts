@@ -3,7 +3,7 @@ import {searchReducer} from "./searchReducer";
 import {booksReducer} from "./booksReducer";
 import {
     addSearchResultsActionType,
-    changeIsLoadingStatusActionType,
+    changeIsLoadingStatusActionType, changeNeedToSearchActionType,
     changeSearchQueryActionType,
     renewSearchResultsActionType, setBookActionType, setErrorMessageActionType
 } from "./actions";
@@ -26,3 +26,4 @@ export type actionsType = changeSearchQueryActionType
     | addSearchResultsActionType
     | setErrorMessageActionType
     | setBookActionType
+    | changeNeedToSearchActionType

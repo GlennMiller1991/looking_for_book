@@ -8,6 +8,7 @@ import {setBook} from "../../redux/actions";
 import {ErrorMessage} from "../Books/Books";
 import preloader from "../../common/preloader.gif";
 import {WholeBook} from "./WholeBook";
+import styles from "../../App.module.css";
 
 type PathParamsType = {
     bookId: string,
@@ -27,17 +28,19 @@ const BookSecret: React.FC<RouteComponentProps<PathParamsType>> = React.memo((pr
                 })
         }, 2000)
     }, [dispatch, props.match.params.bookId])
-    console.log(bookState)
     return (
-        <React.Fragment>
+        <div className={styles.booksWrapper}>
             {
                 bookState.id === ERROR ?
                     <ErrorMessage message={bookState.kind}/> :
                     bookState.id === OK ?
-                        <img src={preloader} alt={'page is loading'}/> :
-                        <WholeBook {...bookState}/>
+                        <div className={styles.preloader}>
+                            <img src={preloader} alt={'preloader'}/>
+                        </div> :
+                        //@ts-ignore ____________we are here only if bookState is full
+                        <WholeBook {...bookState.volumeInfo}/>
             }
-        </React.Fragment>
+        </div>
     )
 })
 export const BookContainer = withRouter(BookSecret)

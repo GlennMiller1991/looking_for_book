@@ -1,5 +1,5 @@
 import {actionsType} from "./store";
-import {CHANGE_SEARCH_QUERY} from "./actions";
+import {CHANGE_NEED_TO_SEARCH, CHANGE_SEARCH_QUERY} from "./actions";
 
 //types
 export type bookType = {
@@ -77,6 +77,7 @@ export type booksPageType = {
     queryString: string,
     filter: string,
     sort: string,
+    needToSearch: boolean,
 }
 
 //data
@@ -85,10 +86,12 @@ const initialData: booksPageType = {
     queryString: '',
     filter: 'all',
     sort: 'relevance',
+    needToSearch: true,
 }
 
 export const searchReducer = (state: booksPageType = initialData, action: actionsType) => {
     switch (action.type) {
+        case CHANGE_NEED_TO_SEARCH:
         case CHANGE_SEARCH_QUERY:
             return {
                 ...state,

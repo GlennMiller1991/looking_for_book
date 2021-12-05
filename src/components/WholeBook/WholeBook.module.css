@@ -22,7 +22,42 @@
 }
 
 .info {
+    padding: 5px;
+    font-family: Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
     width: 60%;
     border: 1px solid black;
     height: 100%;
 }
+
+.restInfo {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.restInfo * {
+    display: flex;
+    align-items: center;
+}
+
+.categories {
+    color: #524e4e;
+    font-style: italic;
+}
+
+.title {
+    font-size: 1.2em;
+    color: #443f3f;
+}
+
+.authors {
+    font-size: 1.1em;
+    font-style: italic;
+    color: #524e4e;
+}
+
+.description {
+    color: #524e4e;
+}
+

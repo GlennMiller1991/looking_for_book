@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from './WholeBook.module.css'
 import unknownBook from '../../common/unknownBook.png'
+import {useDispatch} from "react-redux";
+import {changeNeedToSearch} from "../../redux/actions";
 
 type WholeBookPropsType = {
     [x: string]: any,
 }
 export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
-    const imageLinks = props.volumeInfo.imageLinks
+    const dispatch = useDispatch()
+    const imageLinks = props.imageLinks
     const imageSrc = imageLinks ?
         (
             imageLinks.large && imageLinks.large ||
@@ -16,7 +19,14 @@ export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
             imageLinks.smallThumbnail && imageLinks.smallThumbnail
         ) :
         unknownBook
-    console.log(imageSrc)
+
+    //unmount
+    useEffect(() => {
+        return () => {
+            dispatch(changeNeedToSearch(false))
+        }
+    }, [dispatch])
+
     return (
         <div className={styles.wholeBook}>
             <div className={styles.image}>
@@ -24,7 +34,30 @@ export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
                      src={imageSrc}
                 />
             </div>
-            <div className={styles.info}>info</div>
+            <div className={styles.info}>
+                <div className={styles.restInfo}>
+                    <div className={styles.categories}>
+                        {
+                            props.categories
+                        }
+                    </div>
+                    <div className={styles.authors}>
+                        {
+                            props.authors
+                        }
+                    </div>
+                    <div className={styles.title}>
+                        {
+                            props.title
+                        }
+                    </div>
+                </div>
+                <div className={styles.description}>
+                    {
+                        props.description
+                    }
+                </div>
+            </div>
         </div>
     )
 })
