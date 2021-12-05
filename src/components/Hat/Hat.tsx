@@ -12,7 +12,7 @@ export const Hat = React.memo(() => {
 
     //initial data
     const categories: string[] = useMemo(() => {
-        return ['All', 'Art', 'Biography', 'Computers', 'History', 'Medical', 'Poetry']
+        return ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
     }, [])
     const sorts: string[] = useMemo(() => {
         return ['relevance', 'newest']

@@ -3,12 +3,12 @@ import {bookSearchType} from "../redux/searchReducer";
 
 export const booksAPI = {
     getBooks(title: string, pageSize: number, startIndex: number, orderBy: string, subject: string) {
+        const url = `?q=${title}` +
+            (subject === `all` ? `` : `+subject:${subject}`) +
+                    `&maxResults=${pageSize}` +
+                    `&startIndex=${startIndex}&orderBy=${orderBy}`
         return serverApi
-            .get<bookSearchType>(
-                `?q=${title}&maxResults=${pageSize}` +
-                `&startIndex=${startIndex}&orderBy=${orderBy}` +
-                `&subject=${subject}`
-            )
+            .get<bookSearchType>(url)
             .then(response => response.data)
             .catch(err => {
                 return {

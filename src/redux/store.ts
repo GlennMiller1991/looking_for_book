@@ -5,7 +5,7 @@ import {
     addSearchResultsActionType,
     changeIsLoadingStatusActionType,
     changeSearchQueryActionType,
-    renewSearchResultsActionType
+    renewSearchResultsActionType, setErrorMessageActionType
 } from "./actions";
 
 const rootReducer = combineReducers({
@@ -22,3 +22,4 @@ export type actionsType = changeSearchQueryActionType
     | renewSearchResultsActionType
     | changeIsLoadingStatusActionType
     | addSearchResultsActionType
+    | setErrorMessageActionType

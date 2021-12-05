@@ -16,14 +16,19 @@ export const Book: React.FC<BookPropsType> = React.memo((props) => {
     console.log('from book')
     return (
         <div className={styles.book}>
-            <img src={props.imageLinks ? props.imageLinks.smallThumbnail : unknownBook} alt={'bookPic'}/>
-            <h3>{props.title ? props.title : ''}</h3>
-            <div>
-                <span className={styles.authors}>{props.authors ? props.authors : ''}</span>
+            <div className={styles.imgWrapper}>
+                <div>
+                    <img src={props.imageLinks ? props.imageLinks.smallThumbnail : unknownBook} alt={'bookPic'}/>
+                </div>
             </div>
-            <div>
                 <span className={styles.categories}>{props.categories ? props.categories[0] : ''}</span>
+            <div className={styles.titleAndAuthors}>
+                <h3 className={styles.bookTitle}>{props.title ? props.title : ''}</h3>
+                <div>
+                    <span className={styles.authors}>{props.authors ? props.authors : ''}</span>
+                </div>
             </div>
+
         </div>
     )
 })

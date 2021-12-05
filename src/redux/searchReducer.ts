@@ -81,9 +81,9 @@ export type booksPageType = {
 
 //data
 const initialData: booksPageType = {
-    pageSize: 2,
+    pageSize: 4,
     queryString: '',
-    filter: 'All',
+    filter: 'all',
     sort: 'relevance',
 }
 
