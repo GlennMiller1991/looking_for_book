@@ -136,7 +136,7 @@ h1 {
 }
 
 .preloader {
-    margin-top: 5px;
+    margin-top: 30px;
     width: 100%;
     display: grid;
 }
@@ -152,7 +152,7 @@ h1 {
 
 .loadMore {
     height: 40px;
-    margin-top: 5px;
+    margin-top: 30px;
     color: #353c44;
     font-size: 1.4em;
     cursor: pointer;
