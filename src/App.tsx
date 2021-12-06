@@ -6,8 +6,6 @@ import {Hat} from "./components/Hat/Hat";
 import {BookContainer} from "./components/WholeBook/BookContainer";
 
 function App() {
-    console.log('from app')
-
     useEffect(() => {
         document.title = 'Google Books Api'
     }, [])

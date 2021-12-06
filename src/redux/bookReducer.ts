@@ -6,7 +6,7 @@ export const ERROR = '-1'
 export const OK = '-99'
 
 //types
-type fullBookType = {
+export type fullBookType = {
     "kind": string,
     "id": string,
     "etag": string,

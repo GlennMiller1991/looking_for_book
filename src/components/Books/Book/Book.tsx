@@ -1,10 +1,10 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
-import styles from "../../App.module.css";
-import unknownBook from "../../common/unknownBook.png";
-import {setBook} from "../../redux/actions";
+import styles from "../../../App.module.css";
+import unknownBook from "../../../common/unknownBook.png";
+import {setBook} from "../../../redux/actions";
 import {useDispatch} from "react-redux";
-import {OK} from "../../redux/bookReducer";
+import {OK} from "../../../redux/bookReducer";
 
 type BookPropsType = {
     id: string,
@@ -18,7 +18,6 @@ type BookPropsType = {
     [x: string]: any,
 }
 export const Book: React.FC<BookPropsType> = React.memo((props) => {
-    console.log('from book')
     const dispatch = useDispatch()
     const history = useHistory();
     const handleRoute = () =>{

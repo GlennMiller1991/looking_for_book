@@ -11,7 +11,7 @@ export const booksAPI = {
         return serverApi
             .get<bookSearchType>(url)
             .then(response => {
-                if(response.data.totalItems === 0) throw Error('There is no book with this title')
+                if(response.data.totalItems <= startIndex) throw Error('There is no more books with this title')
                 else return response.data
             })
             .catch(err => {

@@ -5,32 +5,28 @@ import {stateType} from "../../redux/store";
 import {bookPageType, ERROR, OK} from "../../redux/bookReducer";
 import {booksAPI} from "../../api/getBookApi";
 import {changeNeedToSearch, setBook} from "../../redux/actions";
-import {ErrorMessage} from "../Books/Books";
 import preloader from "../../common/preloader.gif";
 import {WholeBook} from "./WholeBook";
 import styles from "../../App.module.css";
+import {ErrorMessage} from "../Books/ErrorMessage/ErrorMessage";
 
 type PathParamsType = {
     bookId: string,
 }
 const BookSecret: React.FC<RouteComponentProps<PathParamsType>> = React.memo((props) => {
-    console.log('from BookWhole')
     //initial data
     const bookState = useSelector<stateType, bookPageType>(state => state.book)
     const dispatch = useDispatch()
     //side-effects
     useEffect(() => {
         document.title = props.match.params.bookId
+        dispatch(changeNeedToSearch(false))
         setTimeout(() => {
             booksAPI.getBook(props.match.params.bookId)
                 .then(data => {
                     dispatch(setBook(data))
                 })
         }, 2000)
-
-        return () => {
-            dispatch(changeNeedToSearch(false))
-        }
 
     }, [dispatch, props.match.params.bookId])
 

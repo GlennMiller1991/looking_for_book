@@ -1,65 +1,73 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {stateType} from "../../redux/store";
-import {booksPageType, changeIsLoadingStatus, renewSearchResults} from "../../redux/searchReducer";
-import {booksAPI} from "../../api/getBookApi";
+import {booksPageType} from "../../redux/searchReducer";
 import styles from "../../App.module.css";
-import preloader from "../../common/preloader.gif";
-import {Book} from "./Book";
+import {Book} from "./Book/Book";
+import {booksType} from "../../redux/booksReducer";
+import {getBooks} from "../../redux/thunks";
+import {LoadingOrLoadMore} from "./LoadingOrLoadMore/LoadingOrLoadMore";
+import {ErrorMessage} from "./ErrorMessage/ErrorMessage";
 
 export const Books = React.memo(() => {
-    console.log('from Books')
     //data
-    const state = useSelector<stateType, booksPageType>(state => state.searchResults)
+    const booksState = useSelector<stateType, booksType>(state => state.books)
+    const searchState = useSelector<stateType, booksPageType>(state => state.searchResults)
     const dispatch = useDispatch()
-    const onClickHandler = () => {
-        dispatch(changeIsLoadingStatus(true))
-        booksAPI.getBooks(state.queryString, state.pageSize, state.books.length)
-            .then(data => {
-                dispatch(renewSearchResults(data.items, data.totalItems))
-            })
-    }
-    console.log(state)
+    const onClickHandler = useCallback(() => {
+        dispatch(getBooks(
+            searchState.queryString,
+            searchState.pageSize,
+            booksState.books.length,
+            searchState.sort,
+            searchState.filter,
+            booksState.totalCount,
+        ))
+    }, [dispatch, searchState, booksState.books.length, booksState.totalCount])
+
     //useEffect
     useEffect(() => {
-        console.log('from useEffect')
-        if (state.queryString) {
-            dispatch(changeIsLoadingStatus(true))
-            booksAPI.getBooks(state.queryString, state.pageSize, 0)
-                .then(data => {
-                    dispatch(renewSearchResults(data.items, data.totalItems))
-                })
+        if (booksState.needToSearch && searchState.queryString) {
+            dispatch(getBooks(
+                searchState.queryString,
+                searchState.pageSize,
+                0,
+                searchState.sort,
+                searchState.filter
+            ))
         }
-    }, [state.queryString])
+    }, [searchState, booksState.needToSearch, dispatch])
     return (
-        <React.Fragment>
+        <div className={styles.booksWrapper}>
             {
-                state.totalCount > 0 &&
+                booksState.totalCount > 0 &&
                 <React.Fragment>
-                    <div className={styles.booksWrapper}>
-                        <div>{state.totalCount}</div>
+                        <h2 className={styles.pagesCount}>Found {booksState.totalCount} results</h2>
                         <div className={styles.booksContainer}>
                             {
-                                state.books.map((book, index) => {
-                                    console.log(book.volumeInfo.categories)
+                                booksState.books.map((book, index) => {
                                     return (
-                                        <Book key={index} {...book.volumeInfo}/>
+                                        <Book key={index}
+                                              id={book.id}
+                                              {...book.volumeInfo}/>
                                     )
                                 })
                             }
                         </div>
-                        {
-                            !state.isLoading && <div onClick={onClickHandler}>Load more</div>
-                        }
-                    </div>
                 </React.Fragment>
             }
             {
-                state.isLoading &&
-                <div>
-                    <img src={preloader} alt={'preloader'}/>
-                </div>
+                <LoadingOrLoadMore isLoading={booksState.isLoading}
+                                   totalCount={booksState.totalCount}
+                                   wasRendered={booksState.books.length}
+                                   onClickHandler={onClickHandler}
+                />
             }
-        </React.Fragment>
+            {
+                booksState.error &&
+                <ErrorMessage message={booksState.error}/>
+            }
+        </div>
     )
 })
+

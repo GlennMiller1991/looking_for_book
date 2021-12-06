@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../App.module.css";
+import styles from "../../../../App.module.css";
 
 type UserSelectPropsType = {
     title: string,
@@ -8,7 +8,6 @@ type UserSelectPropsType = {
     onChange: (value: string) => void,
 }
 export const UserSelect: React.FC<UserSelectPropsType> = React.memo((props) => {
-    console.log('from userSelect')
     return (
         <div className={styles.userSelectWrapper}>
             <div className={styles.userSelectTitle}>{props.title}</div>

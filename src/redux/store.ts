@@ -2,7 +2,6 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {searchReducer} from "./searchReducer";
 import {booksReducer} from "./booksReducer";
 import {
-    addSearchResultsActionType,
     changeIsLoadingStatusActionType, changeNeedToSearchActionType,
     changeSearchQueryActionType,
     renewSearchResultsActionType, setBookActionType, setErrorMessageActionType
@@ -24,7 +23,6 @@ export type dispatchType = typeof store.dispatch
 export type actionsType = changeSearchQueryActionType
     | renewSearchResultsActionType
     | changeIsLoadingStatusActionType
-    | addSearchResultsActionType
     | setErrorMessageActionType
     | setBookActionType
     | changeNeedToSearchActionType

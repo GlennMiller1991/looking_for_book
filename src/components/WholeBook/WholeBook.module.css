@@ -17,6 +17,7 @@
     align-items: center;
 }
 
+
 .image img {
     max-width: 50%;
 }
@@ -61,3 +62,34 @@
     color: #524e4e;
 }
 
+@media (max-device-width: 800px) {
+    .wholeBook {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .wholeBook * {
+        padding: 5px;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .image {
+        max-height: 200px;
+    }
+
+    .image * {
+        max-height: 100%;
+    }
+
+    .info {
+        display: grid;
+        grid-template-rows: auto 1fr;
+    }
+
+    .restInfo {
+        display: flex;
+        flex-direction: column;
+    }
+}

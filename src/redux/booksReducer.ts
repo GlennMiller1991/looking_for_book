@@ -1,8 +1,7 @@
 import {bookType} from "./searchReducer";
 import {actionsType} from "./store";
 import {
-    ADD_SEARCH_RESULT,
-    CHANGE_IS_LOADING_STATUS,
+    CHANGE_IS_LOADING_STATUS, CHANGE_NEED_TO_SEARCH,
     CHANGE_SEARCH_QUERY,
     RENEW_SEARCH_RESULTS,
     SET_ERROR_MESSAGE
@@ -14,6 +13,7 @@ export type booksType = {
     isLoading: boolean,
     totalCount: number,
     error: string,
+    needToSearch: boolean,
 }
 
 //data
@@ -22,13 +22,15 @@ const initialState: booksType = {
     isLoading: false,
     totalCount: 0,
     error: '',
+    needToSearch: true,
 }
 
 export const booksReducer = (state: booksType = initialState, action: actionsType) => {
-    switch(action.type) {
+    switch (action.type) {
         case CHANGE_SEARCH_QUERY:
             return {
                 ...initialState,
+                needToSearch: true,
             }
         case RENEW_SEARCH_RESULTS:
             return {
@@ -38,14 +40,13 @@ export const booksReducer = (state: booksType = initialState, action: actionsTyp
                 books: [...state.books, ...action.payload.books],
                 error: '',
             }
-        case ADD_SEARCH_RESULT:
+        case SET_ERROR_MESSAGE:
             return {
                 ...state,
+                ...action.payload,
                 isLoading: false,
-                books: [...state.books, ...action.payload.books],
-                error: '',
             }
-        case SET_ERROR_MESSAGE:
+        case CHANGE_NEED_TO_SEARCH:
         case CHANGE_IS_LOADING_STATUS:
             return {
                 ...state,

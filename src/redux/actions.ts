@@ -41,7 +41,6 @@ export const setErrorMessage = (error: string) => {
         type: SET_ERROR_MESSAGE,
         payload: {
             error,
-            isLoading: false,
         }
     } as const
 }

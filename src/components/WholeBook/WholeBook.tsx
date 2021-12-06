@@ -9,11 +9,11 @@ export const WholeBook: React.FC<WholeBookPropsType> = React.memo((props) => {
     const imageLinks = props.imageLinks
     const imageSrc = imageLinks ?
         (
-            imageLinks.large && imageLinks.large ||
-            imageLinks.medium && imageLinks.medium ||
-            imageLinks.small && imageLinks.small ||
-            imageLinks.thumbnail && imageLinks.thumbnail ||
-            imageLinks.smallThumbnail && imageLinks.smallThumbnail
+            (imageLinks.large && imageLinks.large) ||
+            (imageLinks.medium && imageLinks.medium) ||
+            (imageLinks.small && imageLinks.small) ||
+            (imageLinks.thumbnail && imageLinks.thumbnail) ||
+            (imageLinks.smallThumbnail && imageLinks.smallThumbnail)
         ) :
         unknownBook
 
