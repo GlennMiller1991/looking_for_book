@@ -35,7 +35,7 @@ export const booksReducer = (state: booksType = initialState, action: actionsTyp
                 ...state,
                 totalCount: action.payload.totalCount,
                 isLoading: false,
-                books: [...action.payload.books],
+                books: [...state.books, ...action.payload.books],
                 error: '',
             }
         case ADD_SEARCH_RESULT:

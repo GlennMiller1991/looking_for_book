@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {searchReducer} from "./searchReducer";
 import {booksReducer} from "./booksReducer";
 import {
@@ -8,6 +8,7 @@ import {
     renewSearchResultsActionType, setBookActionType, setErrorMessageActionType
 } from "./actions";
 import {bookReducer} from "./bookReducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
     searchResults: searchReducer,
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
     book: bookReducer,
 })
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 //types
 export type stateType = ReturnType<typeof store.getState>
