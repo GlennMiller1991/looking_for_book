@@ -9,6 +9,7 @@ beforeEach(() => {
         isLoading: false,
         totalCount: 0,
         error: '',
+        needToSearch: true,
     }
 })
 
